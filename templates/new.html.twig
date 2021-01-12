@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{{ form_start(blogForm) }}
+
+    {{ form_widget(blogForm) }}
+
+<button type="submit" class="btn btn-primary">Submit</button>
+{{ form_end(blogForm) }}
+{% endblock %}
