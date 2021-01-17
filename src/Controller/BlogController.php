@@ -17,9 +17,14 @@ class BlogController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function homepage(): Response
+    public function homepage(EntityManagerInterface $em): Response
     {
-        return $this->render('home.html.twig');
+        $repository = $em->getRepository(BlogPost::class);
+        $blogPosts = $repository->findAll();
+
+        return $this->render('home.html.twig', [
+            'blogPosts' => $blogPosts,
+        ]);
     }
 
     /**
