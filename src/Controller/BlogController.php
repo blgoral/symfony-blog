@@ -64,4 +64,17 @@ class BlogController extends AbstractController
             'blogForm' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/posts/{id}/remove", name="admin_post_remove")
+     */
+    public function removePost(EntityManagerInterface $em, int $id): Response
+    {
+        $blogPost = $em->getRepository(BlogPost::class)->find($id);
+
+        $em->remove($blogPost);
+        $em->flush();
+
+        return $this->redirectToRoute('app_list_posts');
+    }
 }
