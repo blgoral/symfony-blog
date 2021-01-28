@@ -28,7 +28,20 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/post/new", name="post_new")
+     * @Route("/posts", name="app_list_posts")
+     */
+    public function listPosts(EntityManagerInterface $em): Response
+    {
+        $repository = $em->getRepository(BlogPost::class);
+        $blogPosts = $repository->findAll();
+
+        return $this->render('list.html.twig', [
+            'blogPosts' => $blogPosts,
+        ]);
+    }
+
+    /**
+     * @Route("/post/new", name="app_post_new")
      */
     public function new(EntityManagerInterface $em, Request $request)
     {
@@ -36,10 +49,9 @@ class BlogController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $blogPost = new BlogPost();
-            $blogPost->setTitle($data['title']);
-            $blogPost->setPostContent($data['postContent']);
+            /** @var BlogPost $blogPost */
+            $blogPost = $form->getData();
+            $blogPost->setPublishedAt(new \DateTime());
 
             $em->persist($blogPost);
             $em->flush();
