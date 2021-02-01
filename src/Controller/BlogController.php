@@ -66,11 +66,31 @@ class BlogController extends AbstractController
     }
 
     /**
+     * @Route("/post/{id}/edit", name="app_post_edit")
+     */
+    public function editPost(BlogPost $blogPost, EntityManagerInterface $em, Request $request)
+    {
+        $form = $this->createForm(BlogPostFormType::class, $blogPost);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->persist($blogPost);
+            $em->flush();
+
+            return $this->redirectToRoute('app_homepage');
+
+        }
+
+        return $this->render('new.html.twig', [
+            'blogForm' => $form->createView()
+        ]);
+    }
+
+    /**
      * @Route("/posts/{id}/remove", name="admin_post_remove")
      */
-    public function removePost(EntityManagerInterface $em, int $id): Response
-    {
-        $blogPost = $em->getRepository(BlogPost::class)->find($id);
+    public function removePost(EntityManagerInterface $em, BlogPost $blogPost): Response   {
 
         $em->remove($blogPost);
         $em->flush();
