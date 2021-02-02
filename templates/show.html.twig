@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="row mt-5">
+    <div class="col-12 flex-column">
+        <h1 class="mb-0">{{ blogPost.title }}</h1>
+        <div class="mb-1 text-muted">{{ blogPost.publishedAt ? blogPost.publishedAt|date('Y-m-d') : 'Unpublished' }}</div>
+    </div>
+    <div class="col-12">
+        <img class="img-fluid blog-img float-right" src="{{ blogPost.postImage ?:  'https://www.placecage.com/400/300'}}" alt="{{ blogPost.title }}">
+        <p class="card-text mb-auto">{{ blogPost.postContent }}</p>
+    </div>
+</div>
+{% endblock %}

@@ -41,6 +41,16 @@ class BlogController extends AbstractController
     }
 
     /**
+     * @Route("/post/{id}", name="app_post_show")
+     */
+    function showPost(BlogPost $blogPost)
+    {
+        return $this->render('show.html.twig', [
+            'blogPost' => $blogPost,
+        ]);
+    }
+
+    /**
      * @Route("/post/new", name="app_post_new")
      */
     public function new(EntityManagerInterface $em, Request $request)
