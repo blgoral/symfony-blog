@@ -8,7 +8,7 @@
     </div>
     <div class="col-12">
         <img class="img-fluid blog-img float-right" src="{{ blogPost.postImage ?:  'https://www.placecage.com/400/300'}}" alt="{{ blogPost.title }}">
-        <p class="card-text mb-auto">{{ blogPost.postContent }}</p>
+        <p class="card-text mb-auto">{{ blogPost.postContent|escape|markdown }}</p>
     </div>
 </div>
 {% endblock %}

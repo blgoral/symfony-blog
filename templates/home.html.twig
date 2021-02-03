@@ -17,7 +17,7 @@
                 <div class="col p-4 d-flex flex-column position-static">
                     <h3 class="mb-0">{{ blogPost.title }}</h3>
                     <div class="mb-1 text-muted">{{ blogPost.publishedAt ? blogPost.publishedAt|date('Y-m-d') : 'Unpublished' }}</div>
-                    <p class="card-text mb-auto">{{ blogPost.postContent }}</p>
+                    <p class="card-text mb-auto">{{ blogPost.postContent|u.truncate(210, '...') }}</p>
                     <a href="{{ path('app_post_show', {id: blogPost.id}) }}" class="stretched-link">Continue reading</a>
                 </div>
             </div>
